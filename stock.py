@@ -39,10 +39,6 @@ def main():
     st.title('Stock Market Dashboard')
     st.markdown("---")
 
-    # Present date and time
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    st.sidebar.write(f"Date and Time: {current_time}")
-
     # Date range selector for selecting the data range to predict
     st.subheader("Select Data Range to Predict")
     start_date = st.date_input("Start Date", pd.to_datetime('2012-01-01'))
@@ -87,11 +83,12 @@ def main():
     else:
         st.error(f"Suggested Action: {suggested_action}")
 
+
     # Display MarketWatch queries
     st.markdown("---")
     st.markdown("## Queries")
     st.markdown("Contact Us:")
-    st.markdown("- Phone: 9999900000")
+    st.markdown("- main site: https://tangerine-kangaroo-71ab69.netlify.app/")
     st.markdown("- Email: support@gmail.com")
 
     # Horizontal scrolling disclaimer text
