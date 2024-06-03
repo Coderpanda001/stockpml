@@ -127,20 +127,6 @@ def main():
                 # Add functionality to change password
                 st.success("Password changed successfully!")
 
-    # Define footer content
-    st.markdown("---")
-    # Display quick links
-    st.markdown("---")
-    st.markdown("## Links")
-
-    # Instagram logo as a clickable image
-    instagram_logo = "https://cdn.icon-icons.com/icons2/836/PNG/512/Instagram_icon-icons.com_66738.png"
-    st.image(instagram_logo, use_column_width=False, width=50, caption="[Instagram](https://www.instagram.com/)")
-
-    # Play Store logo as a clickable image
-    playstore_logo = "https://cdn.icon-icons.com/icons2/117/PNG/512/googleplay_16802.png"
-    st.image(playstore_logo, use_column_width=False, width=50, caption="[Play Store](https://play.google.com/)")
-
     # Display MarketWatch queries
     st.markdown("---")
     st.markdown("## Queries")
@@ -164,22 +150,6 @@ def main():
         """,
         unsafe_allow_html=True
     )
-
-    # Boxes for pictures
-    st.markdown("---")
-    st.markdown("## Picture Boxes")
-
-    col1, col2, col3 = st.columns(3)
-
-    # You can replace the placeholder URLs with your image URLs
-    with col1:
-        st.image("https://via.placeholder.com/300x300", caption='Image 1', use_column_width=True)
-
-    with col2:
-        st.image("https://via.placeholder.com/300x300", caption='Image 2', use_column_width=True)
-
-    with col3:
-        st.image("https://via.placeholder.com/300x300", caption='Image 3', use_column_width=True)
 
 if __name__ == "__main__":
     main()
