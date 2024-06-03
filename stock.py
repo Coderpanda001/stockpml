@@ -4,13 +4,10 @@ import yfinance as yf
 from keras.models import load_model
 import streamlit as st
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 # Load the pre-trained model
 model = load_model("stockpredict.keras")
-
-# Default username and password
-DEFAULT_USERNAME = "hello"
-DEFAULT_PASSWORD = "1111"
 
 def predict_and_suggest_action(data_test_scale, scaler):
     x = []
@@ -42,7 +39,10 @@ def main():
     st.title('Stock Market Dashboard')
     st.markdown("---")
 
-    # Continue with the rest of the application
+    # Present date and time
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    st.sidebar.write(f"Date and Time: {current_time}")
+
     # Date range selector for selecting the data range to predict
     st.subheader("Select Data Range to Predict")
     start_date = st.date_input("Start Date", pd.to_datetime('2012-01-01'))
@@ -86,40 +86,6 @@ def main():
         st.success(f"Suggested Action: {suggested_action}")
     else:
         st.error(f"Suggested Action: {suggested_action}")
-
-    # User control settings section
-    with st.sidebar:
-        st.header("User Information")
-        st.write(f"Name: {name}")
-        st.write(f"Email: {email}")
-
-        st.header("User Control")
-        control_options = st.radio("Select option:", ["Update Basic Details", "Change Password"])
-
-        if control_options == "Update Basic Details":
-            st.subheader("Update Basic Details")
-            # Add form components for updating basic details (e.g., name, email, etc.)
-            new_name = st.text_input("New Name", value=name)
-            new_email = st.text_input("New Email", value=email)
-            update_button = st.button("Update")
-
-            if update_button:
-                # Update user information
-                name = new_name
-                email = new_email
-                st.success("Details updated successfully!")
-
-        elif control_options == "Change Password":
-            st.subheader("Change Password")
-            # Add form components for changing password
-            old_password = st.text_input("Old Password", type="password", value=DEFAULT_PASSWORD)
-            new_password = st.text_input("New Password", type="password")
-            confirm_password = st.text_input("Confirm Password", type="password")
-            change_button = st.button("Change")
-
-            if change_button:
-                # Add functionality to change password
-                st.success("Password changed successfully!")
 
     # Display MarketWatch queries
     st.markdown("---")
