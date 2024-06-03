@@ -42,12 +42,6 @@ def main():
     st.title('Stock Market Dashboard')
     st.markdown("---")
 
-    # User information
-    st.sidebar.title("User Control")
-    st.sidebar.subheader("Basic Details")
-    name = st.sidebar.text_input("Name", value="John Doe")
-    email = st.sidebar.text_input("Email", value="johndoe@example.com")
-
     # Continue with the rest of the application
     # Date range selector for selecting the data range to predict
     st.subheader("Select Data Range to Predict")
