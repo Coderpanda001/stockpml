@@ -5,6 +5,7 @@ from keras.models import load_model
 import streamlit as st
 import matplotlib.pyplot as plt
 from datetime import datetime
+from sklearn.preprocessing import MinMaxScaler
 
 # Load the pre-trained model
 model = load_model("stockpredict.keras")
@@ -54,8 +55,6 @@ def main():
     data_train = pd.DataFrame(data.Close[0: int(len(data) * 0.80)])
     data_test = pd.DataFrame(data.Close[int(len(data) * 0.80): len(data)])
 
-    from sklearn.preprocessing import MinMaxScaler
-
     scaler = MinMaxScaler(feature_range=(0, 1))
 
     pas_100_days = data_train.tail(100)
@@ -69,20 +68,70 @@ def main():
     # Plot predicted vs actual prices
     st.subheader('Original Price vs Predicted Price')
     fig, ax = plt.subplots()
-    ax.plot(predict, 'r', label='Original Price')
-    ax.plot(y, 'g', label='Predicted Price')
+    ax.plot(y, 'r', label='Original Price')
+    ax.plot(predict, 'g', label='Predicted Price')
     ax.set_xlabel('Time')
     ax.set_ylabel('Price')
     ax.legend()
     st.pyplot(fig)
 
-    # Display suggested action in colored boxes
+    # Plot the difference between predicted and actual prices
+    st.subheader('Difference between Original and Predicted Prices')
+    differences = y - predict
+    fig_diff, ax_diff = plt.subplots()
+    ax_diff.plot(differences, 'b', label='Difference')
+    ax_diff.set_xlabel('Time')
+    ax_diff.set_ylabel('Price Difference')
+    ax_diff.legend()
+    st.pyplot(fig_diff)
+
+    # Display predicted and actual values
+    st.subheader('Predicted vs Actual Values')
+    results = pd.DataFrame({'Predicted': predict.flatten(), 'Actual': y.flatten()})
+    st.write(results)
+
+    # Suggested action
     st.subheader('Suggested Action')
     if suggested_action == "Buy":
         st.success(f"Suggested Action: {suggested_action}")
     else:
         st.error(f"Suggested Action: {suggested_action}")
 
+    # Additional plots
+    st.subheader('Additional Analysis')
+
+    # Plot historical closing prices
+    st.subheader('Historical Closing Prices')
+    fig_close, ax_close = plt.subplots()
+    ax_close.plot(data['Close'], label='Closing Price')
+    ax_close.set_xlabel('Date')
+    ax_close.set_ylabel('Price')
+    ax_close.legend()
+    st.pyplot(fig_close)
+
+    # Plot moving averages
+    st.subheader('Moving Averages')
+    data['MA50'] = data['Close'].rolling(window=50).mean()
+    data['MA200'] = data['Close'].rolling(window=200).mean()
+    fig_ma, ax_ma = plt.subplots()
+    ax_ma.plot(data['Close'], label='Closing Price')
+    ax_ma.plot(data['MA50'], label='50-Day MA')
+    ax_ma.plot(data['MA200'], label='200-Day MA')
+    ax_ma.set_xlabel('Date')
+    ax_ma.set_ylabel('Price')
+    ax_ma.legend()
+    st.pyplot(fig_ma)
+
+    # Plot volatility
+    st.subheader('Volatility')
+    data['Returns'] = data['Close'].pct_change()
+    data['Volatility'] = data['Returns'].rolling(window=50).std() * np.sqrt(50)
+    fig_vol, ax_vol = plt.subplots()
+    ax_vol.plot(data['Volatility'], label='Volatility')
+    ax_vol.set_xlabel('Date')
+    ax_vol.set_ylabel('Volatility')
+    ax_vol.legend()
+    st.pyplot(fig_vol)
 
     # Display MarketWatch queries
     st.markdown("---")
