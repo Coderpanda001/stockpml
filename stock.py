@@ -127,8 +127,8 @@ def main():
     st.markdown("---")
     st.markdown("## Queries")
     st.markdown("Contact Us:")
-    st.markdown("- main site: https://tangerine-kangaroo-71ab69.netlify.app/")
-    st.markdown("- Email: support@gmail.com")
+    st.markdown("- main site: https://tradelit.netlify.app ")
+    st.markdown("- Email: genshindeadsoul@gmail.com ")
 
     # Horizontal scrolling disclaimer text
     st.markdown("---")
