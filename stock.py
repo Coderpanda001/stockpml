@@ -125,10 +125,8 @@ def main():
 
     # Display MarketWatch queries
     st.markdown("---")
-    st.markdown("## Queries")
-    st.markdown("Contact Us:")
-    st.markdown("- main site: https://tradelit.netlify.app ")
-    st.markdown("- Email: genshindeadsoul@gmail.com ")
+    st.markdown("Contact Us / support:")
+    st.markdown("- click here : https://tradelitcare.streamlit.app ")
 
     # Horizontal scrolling disclaimer text
     st.markdown("---")
